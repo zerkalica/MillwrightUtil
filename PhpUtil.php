@@ -176,7 +176,7 @@ final class PhpUtil
      * Assert that constant exist in enum class
      *
      * @param string $class       class name with constants
-     * @param string $constant    constant
+     * @param string|string[] $constant    constant
      *
      * @throws \InvalidArgumentException If constant not found in enum class
      */
@@ -185,14 +185,20 @@ final class PhpUtil
         $refClass = new \ReflectionClass($class);
         $constants = $refClass->getConstants();
 
-        if (!in_array($constant, $constants)) {
-            throw new \InvalidArgumentException(strtr(
-                'Error constant: %const%, available values: %values%', array(
-                    '%const%'  => $constant,
-                    '%class%'  => $class,
-                    '%values%' => implode(', ', $refClass->getConstants()),
-                )
-            ));
+        if (!is_array($constant)) {
+            $constant = array($constant);
+        }
+
+        foreach ($constant as $const) {
+            if (!in_array($const, $constants)) {
+                throw new \InvalidArgumentException(strtr(
+                    'Error constant: %const%, available values: %values%', array(
+                        '%const%'  => $const,
+                        '%class%'  => $class,
+                        '%values%' => implode(', ', $refClass->getConstants()),
+                    )
+                ));
+            }
         }
     }
 
