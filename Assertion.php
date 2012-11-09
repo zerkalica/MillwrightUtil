@@ -16,14 +16,14 @@ class Assertion extends AssertionBase
     /**
      * Assert that constant exists in class.
      *
-     * @param string $class    class name with constants
      * @param string $constant constant in this class
+     * @param string $class    class name with constants
      * @param string $message
      * @param string $propertyPath
      *
      * @throws AssertionFailedException
      */
-    static public function constantExists($class, $constant, $message = null, $propertyPath = null)
+    static public function constantExists($constant, $class, $message = null, $propertyPath = null)
     {
         $refClass = new \ReflectionClass($class);
 
