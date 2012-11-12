@@ -71,7 +71,7 @@ final class ContainerUtil
         foreach ($container->findTaggedServiceIds($tag) as $id => $tags) {
             $definition = $container->getDefinition($id);
             $attributes = $definition->getTag($tag);
-            $priority   = isset($attributes[0]['order']) ? $attributes[0]['order'] : 0;
+            $priority   = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
 
             $containers->insert($definition, $priority);
         }
