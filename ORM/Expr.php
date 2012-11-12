@@ -360,7 +360,7 @@ class Expr extends BaseExpr
         if ($value === null) {
             $result = $this->isNull($field);
         } else if (is_array($value)) {
-            $value  = $this->normalize($value, $literal);
+            $value  = $this->inValue($value, $literal);
             $result = $this->in($field, $value);
         } else {
             if (is_string($value)) {
@@ -386,7 +386,7 @@ class Expr extends BaseExpr
         if ($value === null) {
             $result = $this->isNotNull($field);
         } else if (is_array($value)) {
-            $value  = $this->normalize($value, $literal);
+            $value  = $this->inValue($value, $literal);
             $result = $this->notIn($field, $value);
         } else {
             if (is_string($value)) {
@@ -406,7 +406,7 @@ class Expr extends BaseExpr
      *
      * @return array
      */
-    private function normalize(array $value, $literal = false)
+    private function inValue(array $value, $literal = false)
     {
         $result = array();
         foreach ($value as $v) {
@@ -422,5 +422,36 @@ class Expr extends BaseExpr
         }
 
         return $result;
+    }
+
+    /**
+     * Aggregate all ids from domains, literalize it and implode to string
+     *
+     * @param object[] $domains
+     *
+     * @return string
+     */
+    public function extractIds(array $domains)
+    {
+        $result = array();
+        foreach ($domains as $v) {
+            if (is_object($v) && method_exists($v, 'getId')) {
+                $result[] = $v->getId();
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Aggregate all values from array, literalize it and implode to string,
+     *
+     * @param stirng[] $array
+     *
+     * @return string
+     */
+    public function inArray(array $array)
+    {
+        return implode(', ', $this->inValue($array, true));
     }
 }

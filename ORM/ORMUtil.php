@@ -9,37 +9,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class ORMUtil
 {
-
-    /**
-     * Gets ids from domains
-     *
-     * @param object[] $domains
-     *
-     * @return integer[]
-     */
-    public static function getIds(array $domains)
-    {
-        $result = array();
-        foreach ($domains as $domain)
-        {
-            $result[] = $domain->getId();
-        }
-
-        return $result;
-    }
-
-    /**
-     * Get ids string wor include in SQL IN query
-     *
-     * @param object[] $domains
-     *
-     * @return string
-     */
-    static public function getIdString(array $domains)
-    {
-        return implode(', ', self::getIds($domains));
-    }
-
     /**
      * Get alias by repository
      *
