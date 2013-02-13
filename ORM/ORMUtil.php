@@ -39,7 +39,7 @@ class ORMUtil
 
         $qb = $repository->createQueryBuilder($alias);
 
-        return $qb->update($className, $alias);
+        return $qb->update($alias, $alias);
     }
 
     /**
@@ -75,7 +75,7 @@ class ORMUtil
 
         $qb = $repository->createQueryBuilder($alias);
 
-        return $qb->delete($className, $alias);
+        return $qb->delete($alias, $alias);
     }
 
 }
