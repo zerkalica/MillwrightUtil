@@ -8,6 +8,7 @@ final class DateUtil
 {
     const SQL_DATE      = 'Y-m-d';
     const SQL_DATE_TIME = 'Y-m-d H:i:s';
+    const INTL_DAY_WEEK_YEAR = 'dd MM YYYY';
 
     /**
      * Set or modify date time object
@@ -31,6 +32,20 @@ final class DateUtil
         }
 
         return $to;
+    }
+
+    /**
+     * Intl date format lacalized
+     *
+     * @param  \DateTime $date
+     * @param  string $pattern @see http://userguide.icu-project.org/formatparse/datetime
+     * @return string
+     */
+    public static function intlFormat(\DateTime $date, $pattern = self::INTL_DAY_WEEK_YEAR)
+    {
+        $df = new \IntlDateFormatter(null, \IntlDateFormatter::FULL, \IntlDateFormatter::FULL, null, \IntlDateFormatter::GREGORIAN, $pattern);
+
+        return $df->format($date);
     }
 
     /**
