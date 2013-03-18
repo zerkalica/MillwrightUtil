@@ -43,7 +43,14 @@ final class DateUtil
      */
     public static function intlFormat(\DateTime $date, $pattern = self::INTL_DAY_WEEK_YEAR)
     {
-        $df = new \IntlDateFormatter(null, \IntlDateFormatter::FULL, \IntlDateFormatter::FULL, null, \IntlDateFormatter::GREGORIAN, $pattern);
+        $df = new \IntlDateFormatter(
+            null,
+            \IntlDateFormatter::FULL,
+            \IntlDateFormatter::FULL,
+            date_default_timezone_get(),
+            \IntlDateFormatter::GREGORIAN,
+            $pattern
+        );
 
         return $df->format($date);
     }
