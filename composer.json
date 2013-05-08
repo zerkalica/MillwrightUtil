@@ -8,7 +8,6 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": ">=2.1",
         "beberlei/assert": "*"
     },
     "autoload": {
